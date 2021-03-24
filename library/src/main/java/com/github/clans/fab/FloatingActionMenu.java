@@ -194,7 +194,15 @@ public class FloatingActionMenu extends ViewGroup {
         createMenuButton();
         initMenuButtonAnimations(attr);
 
+        int[] contentDecsriptionAttrsArray = new int[] { android.R.attr.contentDescription };
+        TypedArray contentDescriptionAttr = context.obtainStyledAttributes(attrs, contentDecsriptionAttrsArray);
+        CharSequence contentDescription = contentDescriptionAttr.getText(0);
+        if (contentDescription != null) {
+            setContentDescription(contentDescription);
+        }
+
         attr.recycle();
+        contentDescriptionAttr.recycle();
     }
 
     private void initMenuButtonAnimations(TypedArray attr) {
@@ -1012,5 +1020,12 @@ public class FloatingActionMenu extends ViewGroup {
 
     public void setOnMenuButtonLongClickListener(OnLongClickListener longClickListener) {
         mMenuButton.setOnLongClickListener(longClickListener);
+    }
+
+    @Override
+    public void setContentDescription(CharSequence contentDescription) {
+        if (mMenuButton != null) {
+            mMenuButton.setContentDescription(contentDescription);
+        }
     }
 }
